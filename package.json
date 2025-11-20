@@ -3,11 +3,10 @@
   "version": "1.0.0",
   "description": "Proyecto Ingeniería de Software II.",
   "main": "index.js",
- "scripts": {
-  "dev": "nodemon src/app.js",
-  "test": "jest"
-}
-,
+  "scripts": {
+    "dev": "nodemon src/app.js",
+    "test": "jest"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Stiveng12/uniajc-gestion-proyectos-grado.git"

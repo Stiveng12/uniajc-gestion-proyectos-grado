@@ -1,33 +1,38 @@
+// Importación de dependencias
 const express = require('express');
-const path = require('path');
-const session = require('express-session');
-const dotenv = require('dotenv');
-
-dotenv.config();
-
 const app = express();
+const path = require('path');
 
-// Motor de vistas
+// Configuración del motor de plantillas EJS
 app.set('view engine', 'ejs');
-app.set('views', path.join(__dirname, '../views'));
+app.set('views', path.join(__dirname, 'views'));
 
-// Middlewares básicos
+// Middleware para parsear datos del formulario
 app.use(express.urlencoded({ extended: true }));
-app.use(express.json());
-app.use(express.static(path.join(__dirname, '../public')));
 
-app.use(session({
-  secret: process.env.SESSION_SECRET || 'secreto-muy-seguro',
-  resave: false,
-  saveUninitialized: false
-}));
-
-// Ruta de prueba
-app.get('/', (req, res) => {
-  res.send('Sistema UNIAJC - Gestión de Proyectos de Grado');
+// Ruta para mostrar el login
+app.get('/login', (req, res) => {
+   res.render('login'); // Renderiza la vista de login sin validación
 });
 
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-  console.log(`Servidor escuchando en el puerto ${PORT}`);
+// Ruta para procesar el login
+app.post('/login', (req, res) => {
+   // Redirige directamente al dashboard después de "iniciar sesión"
+   res.redirect('/dashboard'); // Redirige a la página principal o dashboard
+});
+
+// Ruta para el dashboard (sin autenticación)
+app.get('/dashboard', (req, res) => {
+   res.render('dashboard'); // Muestra el dashboard o página principal
+});
+
+// Ruta para la página de inicio (Home)
+app.get('/', (req, res) => {
+   res.render('index'); // Página principal
+});
+
+// Configuración del puerto para la aplicación
+const port = process.env.PORT || 3000;
+app.listen(port, () => {
+   console.log(`Servidor en ejecución en el puerto ${port}`);
 });
